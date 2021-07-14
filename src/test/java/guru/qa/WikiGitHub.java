@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class WikiGitHub {
 
@@ -22,13 +22,13 @@ public class WikiGitHub {
         open("/selenide/selenide");
 
         //go to Wiki
-        $("span[data-content=Wiki]").click();
+        $(byText("Wiki")).click();
 
         //Pages list has SoftAssertions, open it
+        $x("//button[contains(text(),'Show 1 more pages')]").click();
         $("a[href='/selenide/selenide/wiki/SoftAssertions']").click();
 
         //SoftAssertions page has Junit5 code sample
-        $("ol[start='3'] li").shouldHave(text("Using JUnit5 extend test class:"));
+        $("#wiki-body").shouldHave(text("Using JUnit5 extend test class:"));
     }
-
 }
